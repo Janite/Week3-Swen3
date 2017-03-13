@@ -62,6 +62,7 @@ public class Assignment implements SubmissionValidator{
 
 	    if(errors.size() > 0)
 	    {
+		System.out.println(errors[0]);
 	    	return errors.toArray(new ValidationError[0]);
 	    
 	    } else {
