@@ -40,9 +40,6 @@ public class Assignment implements SubmissionValidator{
 		return invalid;
 	}
 	
-	public ValidationError[] validateSubmission(Submission submission)
-	{
-		ArrayList<ValidationError> errors = new ArrayList<ValidationError>();
 	        
     @Override
     public ValidationError[] validateSubmission(Submission[] submissions) {
