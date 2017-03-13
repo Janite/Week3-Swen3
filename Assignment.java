@@ -9,16 +9,14 @@ public class Assignment implements SubmissionValidator{
 	public String description;
 	public Date dueDate;
 	public int maxAttempts; 
-	private int assignmentID;
-	public Submission[] valid;
-	public Submission[] invalid;
+	public ArrayList<Submission[]> valid = new ArrayList<Submission[]>();
+	public ArrayList<Submission[]> invalid = new ArrayList<Submission[]>();
 	public ArrayList<Submission[]> submitted = new ArrayList<Submission[]>();
 	
 	public void createSubmission(Student student, File[] files)
 	{
-		assignmentID = ID;
 		Submission newSubmission = new Submission(files, student.studentID);
-		submitted.add(files);
+		submitted.add(newSubmission);
 	}
 	
 	public Assignment(String name, String description, Date dueDate, int maxAttempts)
@@ -31,13 +29,14 @@ public class Assignment implements SubmissionValidator{
 	
 	public Submission[] validSubmissions()
 	{
-			return valid;
+		for(	
+		return validSubmissions;
 			
 	}
 	
 	public Submission[] invalidSubmissions()
 	{
-		return invalid;
+		return invalidSubmissions;
 	}
 	
 	        
@@ -53,8 +52,11 @@ public class Assignment implements SubmissionValidator{
         			ValidationError error = new ValidationError(files[i]);
         			error.addError("Plagiarism", "Plagiarism detected.");
         			errors.add(error);
-        		}
-        	}
+				invalidSubmissions.add(files[i]);
+				invalidSubmissions.add(files[j]);
+        		} 
+        	} 
+		validSubmissions(files[i]);
         	
         }
 
