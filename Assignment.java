@@ -10,14 +10,14 @@ public class Assignment implements SubmissionValidator{
 	public Date dueDate;
 	public int maxAttempts; 
 	private int assignmentID;
-	public submissions[] submissions;
 	public Submission[] valid;
 	public Submission[] invalid;
-	public ArrayList<File[]> submitted = new ArrayList<File[]>();
+	public ArrayList<Submission[]> submitted = new ArrayList<Submission[]>();
 	
-	public void createSubmission(int ID, File[] files)
+	public void createSubmission(Student student, File[] files)
 	{
 		assignmentID = ID;
+		Submission newSubmission = new Submission(files, student.studentID);
 		submitted.add(files);
 	}
 	
