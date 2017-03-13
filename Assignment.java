@@ -10,6 +10,7 @@ public class Assignment implements SubmissionValidator{
 	public Date dueDate;
 	public int maxAttempts; 
 	private int assignmentID;
+	public submissions[] submissions;
 	public Submission[] valid;
 	public Submission[] invalid;
 	public ArrayList<File[]> submitted = new ArrayList<File[]>();
@@ -44,10 +45,10 @@ public class Assignment implements SubmissionValidator{
 		ArrayList<ValidationError> errors = new ArrayList<ValidationError>();
 	        
     @Override
-    public ValidationError[] validateSubmission(Submission submission) {
+    public ValidationError[] validateSubmission(Submission[] submissions) {
         ArrayList<ValidationError> errors = new ArrayList<ValidationError>();
         // Loop through all files and create an error if there's plagiarism
-        File[] files = submission.includedFiles();
+        File[] files = submissions;
         int size = files.length;
         for (int i=0; i<(size-1);i++) {
         	for (int j =i+1; j<size;j++) {
