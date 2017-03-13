@@ -23,9 +23,9 @@ public class lmsdriver {
 		testStudent5.subjects[0] = "Calculus";
 		
 		//files
-		//1
-		//2
-		//3
+		File sameFile1 = new File("same1");
+		File sameFile2 = new File();
+		File differentFile1 = new File();
 		
 		
 		testStudent1.subjects[0].assignments[0].createSubmission();
