@@ -26,6 +26,8 @@ public class lmsdriver {
 		File sameFile1 = new File();
 		File sameFile2 = new File();
 		File differentFile1 = new File("different","different content");
+		File differentFile2 = new File("different2","more different content");
+		File differentFile3 = new File("different3","even more different content");
 		
 		
 		testStudent1.subjects[0].assignments[0].createSubmission();
