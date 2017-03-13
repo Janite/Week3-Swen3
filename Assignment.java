@@ -43,18 +43,22 @@ public class Assignment implements SubmissionValidator{
 	{
 		ArrayList<ValidationError> errors = new ArrayList<ValidationError>();
 	        
-	    // Loop through all files and create an error if there are any no pdfs
-	    File[] files = submission.includedFiles();
-	    for(File f : files)
-	    {
-	    	String type = f.fileType();
-	        if(!type.equals("pdf"))
-	        {
-	          ValidationError error = new ValidationError(f);
-	          error.addError("File Type", "Unsupported filetype.");
-	          errors.add(error);
-	        }
-	    }
+    @Override
+    public ValidationError[] validateSubmission(Submission submission) {
+        ArrayList<ValidationError> errors = new ArrayList<ValidationError>();
+        // Loop through all files and create an error if there's plagiarism
+        File[] files = submission.includedFiles();
+        int size = files.length;
+        for (int i=0; i<(size-1);i++) {
+        	for (int j =i+1; j<size;j++) {
+        		if (files[i].content().equals(files[j].content())){
+        			ValidationError error = new ValidationError(files[i]);
+        			error.addError("Plagiarism", "Plagiarism detected.");
+        			errors.add(error);
+        		}
+        	}
+        	
+        }
 
 	    if(errors.size() > 0)
 	    {
