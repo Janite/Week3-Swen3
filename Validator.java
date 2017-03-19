@@ -1,4 +1,4 @@
- package com.unimelb.swen30006.workshops;
+ package lms;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ public class Validator implements SubmissionValidator{
     public ValidationError[] validateSubmission(Submission submission) {
         ArrayList<ValidationError> errors = new ArrayList<ValidationError>();
         // Loop through all files and create an error if there's plagiarism
-        File[] files = submission.includedFiles();
-        int size = files.length;
+        ArrayList<Submission> files = submission.includedFiles();
+        int size = files.size();
         for (int i=0; i<(size-1);i++) {
         	for (int j =i+1; j<size;j++) {
         		if (files[i].content().equals(files[j].content())){

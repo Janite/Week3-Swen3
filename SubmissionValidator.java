@@ -1,3 +1,5 @@
+package lms;
+
 
 /** A simple interface to allow for generic submission validators with different
  * validation rules for assignment submissions.

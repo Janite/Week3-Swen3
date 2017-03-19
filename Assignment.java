@@ -1,4 +1,4 @@
-package com.unimelb.swen30006.workshops;
+package lms;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,19 +7,19 @@ public class Assignment implements SubmissionValidator{
 	
 	public String name;
 	public String description;
-	public Date dueDate;
+	public int dueDate;
 	public int maxAttempts; 
-	public ArrayList<Submission[]> valid = new ArrayList<Submission[]>();
-	public ArrayList<Submission[]> invalid = new ArrayList<Submission[]>();
-	public ArrayList<Submission[]> submitted = new ArrayList<Submission[]>();
+	public ArrayList<Submission> valid = new ArrayList<Submission>();
+	public ArrayList<Submission> invalid = new ArrayList<Submission>();
+	public ArrayList<Submission> submitted = new ArrayList<Submission>();
 	
-	public void createSubmission(Student student, File[] files)
+	public void createSubmission(Student student, File file)
 	{
-		Submission newSubmission = new Submission(files, student.studentID);
+		Submission newSubmission = new Submission(student, file);
 		submitted.add(newSubmission);
 	}
 	
-	public Assignment(String name, String description, Date dueDate, int maxAttempts)
+	public Assignment(String name, String description, int dueDate, int maxAttempts)
 	{
 		this.name = name;
 		this.description = description;
@@ -27,36 +27,34 @@ public class Assignment implements SubmissionValidator{
 		this. maxAttempts = maxAttempts;
 	}
 	
-	public Submission[] validSubmissions()
+	public ArrayList<Submission> validSubmissions()
 	{
-		for(	
-		return validSubmissions;
+		return valid;
 			
 	}
 	
-	public Submission[] invalidSubmissions()
+	public ArrayList<Submission> invalidSubmissions()
 	{
-		return invalidSubmissions;
+		return invalid;
 	}
 	
 	        
-    @Override
     public ValidationError[] validateSubmission(Submission[] submissions) {
         ArrayList<ValidationError> errors = new ArrayList<ValidationError>();
         // Loop through all files and create an error if there's plagiarism
-        File[] files = submissions;
-        int size = files.length;
+        ArrayList<Submission> files = submitted;
+        int size = files.size();
         for (int i=0; i<(size-1);i++) {
         	for (int j =i+1; j<size;j++) {
-        		if (files[i].content().equals(files[j].content())){
+        		if (files.get(i).content().equals(files.get(j).content())){
         			ValidationError error = new ValidationError(files[i]);
         			error.addError("Plagiarism", "Plagiarism detected.");
         			errors.add(error);
-				invalidSubmissions.add(files[i]);
-				invalidSubmissions.add(files[j]);
+				invalid.add(files[i]);
+
         		} 
         	} 
-		validSubmissions(files[i]);
+		valid.add(files.get(i));
         	
         }
 
@@ -69,5 +67,11 @@ public class Assignment implements SubmissionValidator{
 	        
 	    	return null;
 	    }
+	}
+
+	@Override
+	public ValidationError[] validateSubmission(Submission submission) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

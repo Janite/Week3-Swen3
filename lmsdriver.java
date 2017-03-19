@@ -3,24 +3,24 @@ package lms;
 public class lmsdriver {
 
 	public static void main(String[] args) {
-		public Subject testSubject = new Subject("Calculus", "MATH10001");
-		public Assignment testAssignment = testSubject.createAssignment();
+		Subject testSubject = new Subject("Calculus", "MATH10001");
+		String[] roles = {"lecturer"};
 		
-		public Staff testStaff = new Staff("Jane Smith", 12/11/2020, "ddd", 33, "fefsf");
-		testStaff.subjects[0] = "Calculus";
-		testStaff.subjects[0].createAssignment();
+		Staff testStaff = new Staff("Jane Smith", 12/11/2020, "ddd", "33", roles);
+		testStaff.subjects[0] = testSubject;
+		testStaff.subjects[0].createAssignment("Project1", "A question sheet", 13/5/2003, 3);
 		
-		public Student testStudent1 = new Student("John Smith", 12/11/2020, "ddd", 33, "fefsf");
-		public Student testStudent2 = new Student("John Smith", 12/11/2020, "ddd", 33, "fefsf");
-		public Student testStudent3 = new Student("John Smith", 12/11/2020, "ddd", 33, "fefsf");
-		public Student testStudent4 = new Student("John Smith", 12/11/2020, "ddd", 33, "fefsf");
-		public Student testStudent5 = new Student("John Smith", 12/11/2020, "ddd", 33, "fefsf");
+		Student testStudent1 = new Student("John Smith", 12/11/2020, "ddd", "33", "fefsf");
+		Student testStudent2 = new Student("John Smith", 12/11/2020, "ddd", "33", "fefsf");
+		Student testStudent3 = new Student("John Smith", 12/11/2020, "ddd", "33", "fefsf");
+		Student testStudent4 = new Student("John Smith", 12/11/2020, "ddd", "33", "fefsf");
+		Student testStudent5 = new Student("John Smith", 12/11/2020, "ddd", "33", "fefsf");
 		
-		testStudent1.subjects[0] = "Calculus";
-		testStudent2.subjects[0] = "Calculus";
-		testStudent3.subjects[0] = "Calculus";
-		testStudent4.subjects[0] = "Calculus";
-		testStudent5.subjects[0] = "Calculus";
+		testStudent1.subjects[0] = testSubject;
+		testStudent2.subjects[0] = testSubject;
+		testStudent3.subjects[0] = testSubject;
+		testStudent4.subjects[0] = testSubject;
+		testStudent5.subjects[0] = testSubject;
 		
 		//files
 		File sameFile1 = new File();
@@ -30,23 +30,23 @@ public class lmsdriver {
 		File differentFile3 = new File("different3","even more different content");
 		
 		
-		testStudent1.subjects[0].assignments[0].createSubmission();
-		testStudent2.subjects[0].assignments[0].createSubmission();
-		testStudent3.subjects[0].assignments[0].createSubmission();
-		testStudent4.subjects[0].assignments[0].createSubmission();
-		testStudent5.subjects[0].assignments[0].createSubmission();
+		testStudent1.subjects[0].assignments.get(0).createSubmission(testStudent1, sameFile1);
+		testStudent2.subjects[0].assignments.get(0).createSubmission(testStudent2, differentFile1);
+		testStudent3.subjects[0].assignments.get(0).createSubmission(testStudent3, sameFile2);
+		testStudent4.subjects[0].assignments.get(0).createSubmission(testStudent4, differentFile2);
+		testStudent5.subjects[0].assignments.get(0).createSubmission(testStudent5, differentFile3);
 		
-		testStaff.subjects[0].validSubmissions();
-		testStaff.subjects[0].invalidSubmissions();
+		testStaff.subjects[0].assignments.get(0).validSubmissions();
+		testStaff.subjects[0].assignments.get(0).invalidSubmissions();
 		
 		System.out.println("The following students submitted valid assignments: ");
-		for (Submission sub in testStaff.subjects[0].valid) {
-			System.out.println(sub.getStudentID());
+		for (Submission sub : testStaff.subjects[0].assignments.get(0).valid) {
+			System.out.println(sub.submitter.studentID);
 		}
 		
 		System.out.println("The following students submitted invalid assignments: ");
-		for (Submission sub in testStaff.subjects[0].invalid) {
-			System.out.println(sub.getStudentID());
+		for (Submission sub : testStaff.subjects[0].assignments.get(0).invalid) {
+			System.out.println(sub.submitter.studentID);
 		}
 		
 		
