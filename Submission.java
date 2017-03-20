@@ -14,10 +14,13 @@ class Submission {
     }
     public Student submitter;
     
-    public Submission (Student student, File file) {
+    public Submission (Student student, File[] file) {
     	this.submitter = student;
     	this.files = new ArrayList<File>();
-    	this.files.add(file);
+    	for(int i=0; i<file.length; i++) {
+    		this.files.add(file[i]);
+    	}
+    	
     	
     }
 }

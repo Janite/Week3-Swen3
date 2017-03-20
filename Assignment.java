@@ -3,7 +3,7 @@ package lms;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Assignment implements SubmissionValidator{
+public class Assignment {
 	
 	public String name;
 	public String description;
@@ -13,7 +13,7 @@ public class Assignment implements SubmissionValidator{
 	public ArrayList<Submission> invalid = new ArrayList<Submission>();
 	public ArrayList<Submission> submitted = new ArrayList<Submission>();
 	
-	public void createSubmission(Student student, File file)
+	public void createSubmission(Student student, File[] file)
 	{
 		Submission newSubmission = new Submission(student, file);
 		submitted.add(newSubmission);
@@ -29,49 +29,25 @@ public class Assignment implements SubmissionValidator{
 	
 	public ArrayList<Submission> validSubmissions()
 	{
+		Validator validator = new Validator();
+		for(Submission sub : submitted) {
+			if(validator.validateSubmission(sub)==null) {
+				valid.add(sub);
+			}
+		}
 		return valid;
 			
 	}
 	
 	public ArrayList<Submission> invalidSubmissions()
 	{
+		Validator validator = new Validator();
+		for(Submission sub : submitted) {
+			if(validator.validateSubmission(sub)!=null) {
+				invalid.add(sub);
+			} 
+		}
 		return invalid;
 	}
 	
-	        
-    public ValidationError[] validateSubmission(Submission[] submissions) {
-        ArrayList<ValidationError> errors = new ArrayList<ValidationError>();
-        // Loop through all files and create an error if there's plagiarism
-        ArrayList<Submission> files = submitted;
-        int size = files.size();
-        for (int i=0; i<(size-1);i++) {
-        	for (int j =i+1; j<size;j++) {
-        		if (files.get(i).content().equals(files.get(j).content())){
-        			ValidationError error = new ValidationError(files[i]);
-        			error.addError("Plagiarism", "Plagiarism detected.");
-        			errors.add(error);
-				invalid.add(files[i]);
-
-        		} 
-        	} 
-		valid.add(files.get(i));
-        	
-        }
-
-	    if(errors.size() > 0)
-	    {
-		System.out.println(errors[0]);
-	    	return errors.toArray(new ValidationError[0]);
-	    
-	    } else {
-	        
-	    	return null;
-	    }
-	}
-
-	@Override
-	public ValidationError[] validateSubmission(Submission submission) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
